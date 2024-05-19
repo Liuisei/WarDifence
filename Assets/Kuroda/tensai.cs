@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +13,6 @@ public class tensai : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("•“c‚Í“VË");
+        Debug.Log("é»’ç”°ã¯å¤©æ‰");
     }
 }
