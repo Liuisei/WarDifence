@@ -1,44 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
-
-public class CardSlot : MonoBehaviour//ゲーム中に獲得したカードを置くスロット
+public class CardSlot : MonoBehaviour //ゲーム中に獲得したカードを置くスロット
 {
-    [SerializeField] private GameObject[] _cards = new GameObject[5];
+    public static CardSlot Instance { get; private set; }
+    [SerializeField] private GameObject[] _slots = new GameObject[5];
+    private void Awake() { Instance = this; }
+    
     [SerializeField] private GameObject _cardPoolObject;
-    private CardPool cardpool;
-
-    private void Start()
-    {
-        cardpool = _cardPoolObject.GetComponent<CardPool>();
-    }
-
-    public void AddSlot(GameObject addCard) //敵を倒した時にカードを画面下部に置く
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            if (_cards[i] != null)
-            {
-                addCard.transform.parent = _cards[i].transform;
-                addCard.SetActive(true);
-                addCard.transform.position = _cards[i].transform.position;
-                return;
-            }
-        }
-    }
-
-    void DeleteCard(GameObject _deleteCard) //カード使用時にカードをプールに戻す
-    {
-        _deleteCard.transform.parent = _cardPoolObject.transform;
-        _deleteCard.SetActive(false);
-        _deleteCard.transform.position = _cardPoolObject.transform.position;
-    }
-
-    public void Test()
-    {
-        AddSlot(cardpool.RandomCard());
-    }
+     // public void AddCard(GameObject addCard) //カードを画面下部に置く処理
+     // {
+     //     for (int i = 0; i < _slots.Length; i++)
+     //     {
+     //         if (_slots[i].transform.childCount != 0)
+     //         {
+     //             addCard.SetActive(true);
+     //             addCard.transform.parent = _slots[i].transform;
+     //             addCard.transform.position = _slots[i].transform.position;
+     //             Debug.Log(addCard.name);
+     //             return;
+     //         }
+     //     }
+     // }
+     // public void DeleteCard(GameObject _deleteCard) //カード使用時にカードをプールに戻す
+     // {
+     //     _deleteCard.transform.parent = _cardPoolObject.transform;
+     //     _deleteCard.SetActive(false);
+     //     _deleteCard.transform.position = _cardPoolObject.transform.position;
+     // }
 }

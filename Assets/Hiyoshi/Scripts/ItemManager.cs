@@ -1,24 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager
+public class ItemManager : MonoBehaviour
 { 
     private static ItemManager _instance;
-    private int _coin = 0;
-    private int _diamond = 0;
-
-    public static ItemManager Instance { get { return _instance ??= new ItemManager(); } }
-    public int diamond { get => _diamond; }
-    public int coin { get => _coin; }
-
-    void UseCoin(int x)
-    {
-        _coin += x;
-    }
-
-    void UseDiamond(int x)
-    {
-        _diamond += x;
-    }
+    public int _coin { get; private set; }
+    public int _diamond { get; private set; }
+    public static ItemManager Instance { get; private set; }
+    private void Awake() { Instance = this; }
+    public void AddCoin(int x) { _coin += x; }
+    public void AddDiamond(int x) { _diamond += x; }
 }
