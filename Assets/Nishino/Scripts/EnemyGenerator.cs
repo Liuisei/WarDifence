@@ -2,35 +2,32 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    [SerializeField] Vector2 _xPos; 
+    [SerializeField] GameObject _spawnPoint;
     [SerializeField] float _spawnInterval = 3;
-    [SerializeField] GameObject _spawnPos;
     ObjectPool _objectPool;
     float _timer;
-    
+
     void Awake()
     {
         _objectPool = GameObject.FindAnyObjectByType<ObjectPool>();
     }
-    
+
     void Update()
     {
+        // _timer変数にTime.deltaTimeの数値を足す
         _timer += Time.deltaTime;
-        Debug.Log(_timer);
-        if (_spawnInterval < _timer)
+        // _timerが_spawnIntervalの数値を超えたらオブジェクトを生成する
+        if (_timer > _spawnInterval)
         {
             _timer = 0;
-            GameObject objPool = _objectPool.GetObj(); 
-            RandomPos();
-            objPool.transform.position = transform.position;
+            GameObject objPool = _objectPool.GetObj();
+            objPool.transform.position = RandomPos(transform.position);
         }
     }
 
-    void  RandomPos()
+    Vector3 RandomPos(Vector3 pos)
     {
-        int _posx = 0;
-        _posx = (int)Random.Range(_xPos.x,_xPos.y);
-        transform.position = new Vector3(_posx, transform.position.y,transform.position.z);
-        
+        pos.x = Random.Range(_spawnPoint.transform.position.x, _spawnPoint.transform.position.x * -1);
+        return transform.position = pos;
     }
 }

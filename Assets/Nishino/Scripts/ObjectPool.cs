@@ -14,14 +14,16 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        _objectPool = new ObjectPool<GameObject>(
+        _objectPool = new ObjectPool<GameObject>
+        (
             OnCreatePoolObject,
             OnTakeFromPool,
             OnReturnedToPool,
             OnDestroyPoolObject,
             false,
             _defaultCapacity,
-            _maxSize);
+            _maxSize
+        );
     }
 
     // ObjectPool コンストラクタ 1つ目の引数の関数 

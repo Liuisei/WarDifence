@@ -3,23 +3,34 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : MonoBehaviour
 {
-    ObjectPool _objectPool;
-    Rigidbody2D _rb;
+    GameObject _target;
     [SerializeField] float _enemySpeed = -2;
+    ObjectPool _objectPool;
+    [SerializeField] int _hp;
+    public int Hp => _hp;
+
+    public EnemyController(int hp)
+    {
+        _hp = hp;
+    }
+
 
     void Start()
     {
-        _objectPool = GameObject.FindAnyObjectByType<ObjectPool>();
-        _rb = GetComponent<Rigidbody2D>();
+        _target = GameObject.FindGameObjectWithTag("Player");
+        _objectPool = FindAnyObjectByType<ObjectPool>();
     }
 
     void Update()
     {
-        _rb.velocity = new Vector2(0, _enemySpeed * -1);
+        transform.position = Vector3.MoveTowards(transform.position, _target.transform.position, _enemySpeed * 0.01f);
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        _objectPool.ReleaseObj(gameObject);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _objectPool.ReleaseObj(gameObject);
+        }
     }
 }
