@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleSceneScript : MonoBehaviour
+public class SettingData : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        TitleUIOpen();
+        
     }
 
-    void TitleUIOpen()
+    // Update is called once per frame
+    void Update()
     {
-        UIManager.Instance.ShowUI(UITypeClass.EnumUIType.Title );
+        
     }
-    
 }
