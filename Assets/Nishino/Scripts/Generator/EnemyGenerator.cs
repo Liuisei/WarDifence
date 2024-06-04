@@ -1,9 +1,10 @@
 using UnityEngine;
+[RequireComponent(typeof(ObjectPool))]
 
-public class EnemyGenerator : MonoBehaviour
+public class EnemyGenerator : MonoBehaviour         //エネミーを生成するクラス
 {
     [SerializeField] GameObject _spawnPoint;
-    [SerializeField] float _spawnInterval = 3;
+    [SerializeField,Tooltip("エネミー生成のインターバル")] float _spawnInterval = 3;
     ObjectPool _objectPool;
     float _timer;
 

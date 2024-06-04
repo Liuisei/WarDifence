@@ -7,7 +7,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] GameObject _instanceObj;
     /// <summary>プールの容量</summary>
     [SerializeField] int _defaultCapacity = 20;  
-    /// <summary>最大サイズ</summary>//
+        /// <summary>最大サイズ</summary>//
     [SerializeField] int _maxSize = 100;
     /// <summary>オブジェクトプール本体</summary>
     ObjectPool<GameObject> _objectPool;
