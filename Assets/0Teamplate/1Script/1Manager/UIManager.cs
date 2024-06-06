@@ -6,7 +6,6 @@ using UnityEngine;
 public class UIManager : BaseSingleton<UIManager>
 {
     [SerializeField] private List<UITypeClass> _uiTypeList = new List<UITypeClass>();
-    
     public void ShowUI(UITypeClass.EnumUIType uiType)
     {
         var targetUITypeClass = _uiTypeList.Find(e => e._uiType == uiType);
