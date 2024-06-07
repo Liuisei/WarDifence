@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48d44ba2e9a9e546a732e1b56b08087, type: 3}
   m_Name: CharacterDataSO
   m_EditorClassIdentifier: 
-  _characteraID: 0
-  _characteraName: 
-  _characteraCoolTime: 0
-  _hp: 0
+  _characterID: 0
+  _characterPrefab: {fileID: 0}
+  _characterName: 
+  _characterCoolTime: 0
+  _characterHp: 0
   _characterCost: 0
-  _characteraLevel: 1
-  _characteraSkills: 
+  _characterSkillID: 0
