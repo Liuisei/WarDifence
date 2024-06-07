@@ -1,12 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class DeckController : MonoBehaviour
+public class DeckController : MonoBehaviour 
 {
-  
+    [SerializeField]
+    private List<GameObject> _cards;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

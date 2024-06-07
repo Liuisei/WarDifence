@@ -17,7 +17,7 @@ public abstract class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerU
     [SerializeField] [ Tooltip("SE when clicked")]
     private AudioClip _clickedSe;
 
-    public void  Start() { GetComponentSetup(); }
+    public void   Start() { GetComponentSetup(); }
     private void GetComponentSetup()
     {
         _buttonImage   = GetComponent<Image>();

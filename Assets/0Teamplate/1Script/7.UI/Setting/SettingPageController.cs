@@ -10,7 +10,7 @@ public class SettingPageController : BaseButton
     [SerializeField] GameObject _settingPanel;
     GameObject                  _nowSettingPanel;
     [SerializeField] bool       _defaultOpen = false;
-    void Start()
+    new void  Start()
     {
         if (_defaultOpen) { ShowSettingPanel(); }
     }
