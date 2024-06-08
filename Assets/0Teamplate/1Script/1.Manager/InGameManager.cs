@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [DefaultExecutionOrder(-10)]
@@ -9,10 +10,16 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
-    private          GameState _gameState = GameState.None;
-    private          Vector3   _playerPosition;
-    private          Vector3   _firstEnemyPosition;
-    [SerializeField] float     _coolTime = 10;
+    private                                                                                   GameState _gameState = GameState.None;
+    private                                                                                   Vector3   _playerPosition;
+    private                                                                                   Vector3   _firstEnemyPosition;
+    [SerializeField] float     _StartCoolTime = 10;
+    
+         
+    //user game data
+    private int _playerID = 0;
+    List<int>   _playerCharacterDeck;
+    List<int>   _platerDeck;
 
     //////////   property   //////////
     public          GameState GameStateP
@@ -71,7 +78,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     //コルーチンで10秒待つ
     IEnumerator StartCoolTime()
     {
-        yield return new WaitForSeconds(_coolTime);
+        yield return new WaitForSeconds(_StartCoolTime);
         GameStateP = GameState.StartGame;
     }
     public void StartGame()
