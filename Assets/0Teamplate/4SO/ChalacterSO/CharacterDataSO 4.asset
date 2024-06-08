@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b48d44ba2e9a9e546a732e1b56b08087, type: 3}
-  m_Name: CharacterDataSO 1
+  m_Name: CharacterDataSO 4
   m_EditorClassIdentifier: 
-  _characterID: 1
+  _characterID: 4
   _characterPrefab: {fileID: 0}
-  _characterName: 
+  _characterName: okb
   _characterCoolTime: 0
   _characterHp: 0
   _characterCost: 0

@@ -10,16 +10,20 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
-    private                                                                                   GameState _gameState = GameState.None;
-    private                                                                                   Vector3   _playerPosition;
-    private                                                                                   Vector3   _firstEnemyPosition;
+    private          GameState _gameState = GameState.None;
+    private          Vector3   _playerPosition;
+    private          Vector3   _firstEnemyPosition;
     [SerializeField] float     _StartCoolTime = 10;
-    
-         
+
+
     //user game data
     private int _playerID = 0;
-    List<int>   _playerCharacterDeck;
-    List<int>   _platerDeck;
+    List<int>   _playerCharacterDeckID;
+    List<int>   _platerSkillDeckID;
+
+    //enemy data
+    List<int>   _enemyDeckID;
+
 
     //////////   property   //////////
     public          GameState GameStateP
@@ -74,7 +78,20 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 
 
     ///////////   function    //////////
-    void Start() { StartCoroutine(StartCoolTime()); }
+    void Start()
+    {
+        GetDataFromDataManager();
+        StartCoroutine(StartCoolTime());
+    }
+
+    void GetDataFromDataManager()
+    {
+        Debug.Log(" Get Data from DataManager");
+        _playerID              = 1;
+        _playerCharacterDeckID = new List<int>() { 1, 2, 3, 4, 5 };
+        _platerSkillDeckID     = new List<int>() { 1, 2 };
+    }
+
     //コルーチンで10秒待つ
     IEnumerator StartCoolTime()
     {
