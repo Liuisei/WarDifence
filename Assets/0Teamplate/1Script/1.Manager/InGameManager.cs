@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [DefaultExecutionOrder(-10)]
@@ -9,17 +10,26 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
-    private          GameState _gameState;
+    private          GameState _gameState = GameState.None;
     private          Vector3   _playerPosition;
     private          Vector3   _firstEnemyPosition;
-    [SerializeField] float     _coolTime;
+    [SerializeField] float     _StartCoolTime = 10;
+
+
+    //user game data
+    private int _playerID = 0;
+    List<int>   _playerCharacterDeckID;
+    List<int>   _platerSkillDeckID;
+
+    //enemy data
+    List<int>   _enemyDeckID;
 
 
     //////////   property   //////////
     public          GameState GameStateP
     {
         get { return _gameState; }
-        set
+        private set
         {
             switch (value)
             {
@@ -48,46 +58,65 @@ public class InGameManager : BaseSingletonScene<InGameManager>
                     GameOver();
                     break;
             }
+
             _gameState          = value;
         }
     }
 
     public Vector3 PlayerPosition     { get { return _playerPosition; }     set { _playerPosition     = value; } }
     public Vector3 FirstEnemyPosition { get { return _firstEnemyPosition; } set { _firstEnemyPosition = value; } }
+    ///////////  action  //////////
+
+    public event Action PlayerStarted;
+    public event Action PlayerSetStartEvent;
+    public event Action PlayerSetModeEvent;
+    public event Action CombatStartEvent;
+    public event Action CombatModeEvent;
+    public event Action PauseEvent;
+    public event Action ManuEvent;
+    public event Action GameOverEvent;
 
 
-    
     ///////////   function    //////////
-
-
     void Start()
     {
-        _gameState = GameState.StartGame; 
+        GetDataFromDataManager();
+        StartCoroutine(StartCoolTime());
+    }
+
+    void GetDataFromDataManager()
+    {
+        Debug.Log(" Get Data from DataManager");
+        _playerID              = 1;
+        _playerCharacterDeckID = new List<int>() { 1, 2, 3, 4, 5 };
+        _platerSkillDeckID     = new List<int>() { 1, 2 };
     }
 
     //コルーチンで10秒待つ
     IEnumerator StartCoolTime()
     {
-        yield return new WaitForSeconds(_coolTime);
+        yield return new WaitForSeconds(_StartCoolTime);
+        GameStateP = GameState.StartGame;
     }
-
-
     public void StartGame()
     {
-        StartCoroutine(StartCoolTime());
+        UIManager.Instance.ShowUI(UITypeClass.EnumUIType.Deck);
+        PlayerStarted?.Invoke();
     }
-    public void PlayerSetStart() { }
-    public void PlayerSetMode()  { }
-    public void CombatStart()    { }
-    public void CombatMode()     { }
-    public void Pause()          { }
-    public void Manu()           { }
-    public void GameOver()       { }
+    public void PlayerSetStart() { PlayerSetStartEvent?.Invoke(); }
+    public void PlayerSetMode()  { PlayerSetStartEvent?.Invoke(); }
+    public void CombatStart()    { CombatStartEvent?.Invoke(); }
+    public void CombatMode()     { CombatModeEvent?.Invoke(); }
+    public void Pause()          { PauseEvent?.Invoke(); }
+    public void Manu()           { ManuEvent?.Invoke(); }
+    public void GameOver()       { GameOverEvent?.Invoke(); }
+
 
     protected override void AwakeFunction()  { }
 }
+
 public enum GameState
 {
-    StartGame, PlayerSetStart, PlayerSetMode, CombatStart, CombatMode,
-    Pause, Manu, GameOver,
+    None, StartGame, PlayerSetStart, PlayerSetMode, CombatStart,
+    CombatMode, Pause, Manu, GameOver,
 }
