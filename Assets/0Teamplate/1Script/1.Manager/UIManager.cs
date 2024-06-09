@@ -52,7 +52,11 @@ public class UIManager : BaseSingleton<UIManager>
 public class UITypeClass
 {
     [Serializable]
-    public enum EnumUIType { Empty,  Game, Settings, Title, Deck }
+    public enum EnumUIType
+    {
+        Empty,  Game, Settings, Title, Deck ,
+        PlayerSet
+    }
 
     [SerializeField] private EnumUIType _uiType;
     [SerializeField] private GameObject _uiPrefab;

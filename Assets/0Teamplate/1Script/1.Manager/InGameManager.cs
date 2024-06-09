@@ -59,6 +59,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
                     break;
             }
 
+            Debug.Log(value);
             _gameState          = value;
         }
     }
@@ -81,7 +82,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     void Start()
     {
         GetDataFromDataManager();
-        StartCoroutine(StartCoolTime());
+        StartCoroutine(ChangeStateCoolTime(GameState.StartGame, _StartCoolTime));
     }
 
     void GetDataFromDataManager()
@@ -92,24 +93,27 @@ public class InGameManager : BaseSingletonScene<InGameManager>
         _platerSkillDeckID     = new List<int>() { 1, 2 };
     }
 
-    //コルーチンで10秒待つ
-    IEnumerator StartCoolTime()
+    IEnumerator ChangeStateCoolTime(GameState  state , float time)
     {
-        yield return new WaitForSeconds(_StartCoolTime);
-        GameStateP = GameState.StartGame;
+        yield return new WaitForSeconds(time);
+        GameStateP = state;
     }
     public void StartGame()
     {
-        UIManager.Instance.ShowUI(UITypeClass.EnumUIType.Deck);
+        StartCoroutine( ChangeStateCoolTime(GameState.PlayerSetStart, 1) );
         PlayerStarted?.Invoke();
     }
-    public void PlayerSetStart() { PlayerSetStartEvent?.Invoke(); }
-    public void PlayerSetMode()  { PlayerSetStartEvent?.Invoke(); }
-    public void CombatStart()    { CombatStartEvent?.Invoke(); }
-    public void CombatMode()     { CombatModeEvent?.Invoke(); }
-    public void Pause()          { PauseEvent?.Invoke(); }
-    public void Manu()           { ManuEvent?.Invoke(); }
-    public void GameOver()       { GameOverEvent?.Invoke(); }
+    public void PlayerSetStart()
+    {
+        UIManager.Instance.ShowUI(UITypeClass.EnumUIType.PlayerSet);
+        PlayerSetStartEvent?.Invoke();
+    }
+    public void PlayerSetMode() { PlayerSetStartEvent?.Invoke(); }
+    public void CombatStart()   { CombatStartEvent?.Invoke(); }
+    public void CombatMode()    { CombatModeEvent?.Invoke(); }
+    public void Pause()         { PauseEvent?.Invoke(); }
+    public void Manu()          { ManuEvent?.Invoke(); }
+    public void GameOver()      { GameOverEvent?.Invoke(); }
 
 
     protected override void AwakeFunction()  { }
