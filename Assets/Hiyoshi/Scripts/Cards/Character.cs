@@ -15,7 +15,6 @@ public class Character : Card, ICounter
     [SerializeField] private int _cost;
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _bulletObj;
-    [SerializeField] private int _bulletSpeed;
     [SerializeField] private GameObject _enemyObj;
     private float _attackCounter = 0;
 
@@ -49,33 +48,32 @@ public class Character : Card, ICounter
         private set { _cost = value; }
     }
 
+    public GameObject EnemyObj
+    {
+        get { return _enemyObj; }
+        set { _enemyObj = value; }
+    }
+
     public float AttackCounter
     {
         get { return _attackCounter; }
         private set
         {
-            if(value < 0) value = 0;
+            if (value < 0) value = 0;
             _attackCounter = value;
         }
     }
 
-    public void Attack()
-    {
-    }
-
     void ShotBullet()
     {
-        Vector3 _targetPos = _enemyObj.transform.position;
         GameObject _bullet = Instantiate(this._bulletObj, _muzzle.transform.position, quaternion.identity);
-        _bullet.transform.up = _targetPos - _bullet.transform.position;
         Bullet _bulletSc = _bullet.GetComponent<Bullet>();
-        _bulletSc.Speed = _bulletSpeed;
+        _bulletSc.EnemyObj = this._enemyObj;
     }
 
     public void AddCounter(float x)
     {
         AttackCounter += x;
-        Debug.Log(AttackCounter);
         if (AttackCounter >= CoolTime)
         {
             ShotBullet();

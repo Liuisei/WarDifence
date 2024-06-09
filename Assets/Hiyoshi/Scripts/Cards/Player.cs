@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.UI;
 
-public class Player : Card ,ICounter
+public class Player : Card, ICounter
 {
     [SerializeField] private Image _image;
     [SerializeField] private float _id;
@@ -14,7 +15,6 @@ public class Player : Card ,ICounter
     [SerializeField] private int _cost;
     [SerializeField] private GameObject _muzzle;
     [SerializeField] private GameObject _bulletObj;
-    [SerializeField] private int _bulletSpeed;
     [SerializeField] private GameObject _enemyObj;
     private float _attackCounter = 0;
 
@@ -48,35 +48,36 @@ public class Player : Card ,ICounter
         private set { _cost = value; }
     }
 
+    public GameObject EnemyObj
+    {
+        get { return _enemyObj; }
+        set { _enemyObj = value; }
+    }
+
     public float AttackCounter
     {
         get { return _attackCounter; }
         private set
         {
-            if(value < 0) value = 0;
+            if (value < 0) value = 0;
             _attackCounter = value;
         }
-    }
-    
-    
-
-    public void Attack()
-    {
-        ShotBullet();
-        AttackCounter = 0;
     }
 
     void ShotBullet()
     {
-        Vector3 _targetPos = _enemyObj.transform.position;
         GameObject _bullet = Instantiate(this._bulletObj, _muzzle.transform.position, quaternion.identity);
-        _bullet.transform.up = _targetPos - _bullet.transform.position;
         Bullet _bulletSc = _bullet.GetComponent<Bullet>();
-        _bulletSc.Speed = _bulletSpeed;
+        _bulletSc.EnemyObj = this._enemyObj;
     }
 
     public void AddCounter(float x)
     {
         AttackCounter += x;
+        if (AttackCounter >= CoolTime)
+        {
+            ShotBullet();
+            AttackCounter = 0;
+        }
     }
 }
