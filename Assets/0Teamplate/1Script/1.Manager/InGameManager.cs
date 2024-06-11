@@ -10,22 +10,23 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
-    private          GameState _gameState = GameState.None;
-    private          Vector3   _playerPosition;
-    private          Vector3   _firstEnemyPosition;
-    [SerializeField] float     _StartCoolTime = 10;
+    GameState              _gameState = GameState.None;
+    Vector3                _playerPosition;
+    Vector3                _firstEnemyPosition;
+    [SerializeField] float _StartCoolTime = 10;
 
 
     //user game data
-    private int _playerID = 0;
-    List<int>   _playerCharacterDeckID;
-    List<int>   _platerSkillDeckID;
+    int       _playerID = 0;
+    List<int> _playerCharacterDeckID;
+    List<int> _platerSkillDeckID;
 
     //enemy data
     List<int>   _enemyDeckID;
 
 
     //////////   property   //////////
+    /// 
     public          GameState GameStateP
     {
         get { return _gameState; }
@@ -64,8 +65,10 @@ public class InGameManager : BaseSingletonScene<InGameManager>
         }
     }
 
-    public Vector3 PlayerPosition     { get { return _playerPosition; }     set { _playerPosition     = value; } }
-    public Vector3 FirstEnemyPosition { get { return _firstEnemyPosition; } set { _firstEnemyPosition = value; } }
+    public int     PlayerID           { get { return _playerID; }           private set { _playerID           = value; } }
+    public Vector3 PlayerPosition     { get { return _playerPosition; }     private set { _playerPosition     = value; } }
+    public Vector3 FirstEnemyPosition { get { return _firstEnemyPosition; } private set { _firstEnemyPosition = value; } }
+    
     ///////////  action  //////////
 
     public event Action PlayerStarted;
@@ -88,7 +91,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     void GetDataFromDataManager()
     {
         Debug.Log(" Get Data from DataManager");
-        _playerID              = 1;
+        _playerID              = 0;
         _playerCharacterDeckID = new List<int>() { 1, 2, 3, 4, 5 };
         _platerSkillDeckID     = new List<int>() { 1, 2 };
     }

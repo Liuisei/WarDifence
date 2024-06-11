@@ -3,8 +3,8 @@ using UnityEngine;
 
 public abstract class BaseSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    public static      T    Instance { get; private set; }
-    protected abstract void AwakeFunction();
+    public static     T    Instance        { get; private set; }
+    protected virtual void AwakeFunction() { }
     protected void Awake()
     {
         if (Instance == null)

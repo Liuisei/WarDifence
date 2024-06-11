@@ -1,42 +1,45 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class SOLoadManager
+
+public class SOLoadManager : BaseSingleton<SOLoadManager>
 {
-    public static SOLoadManager Instance { get; private set; } = new SOLoadManager();
+    ///////////  variable  //////////
 
-    static public List<PlayerData>    PlayerDataList    { get; private set; } = new List<PlayerData>();
-    static public List<CharacterData> CharacterDataList { get; private set; } = new List<CharacterData>();
+    private List<PlayerData>    _playerDataList    = new List<PlayerData>();
+    //private List<CharacterData> _characterDataList = new List<CharacterData>();
+
+    public int                 _playerCount       = 3;
 
 
-    static public int PlayerCount = 7;
-
-
+    ///////////  property //////////
+    
+    
+    public List<PlayerData>    PlayerDataList    { get { return _playerDataList; } private set { _playerDataList = value; } }
+   
+    
+    //public List<CharacterData> CharacterDataList { get { return _characterDataList; } private set { _characterDataList = value; } }
+    
     ///////////  method //////////
 
-    private SOLoadManager() { }
-
-    [MenuItem("AssetDatabase/LoadAssetSOPlayerLoad")]
-    private static void SOPlayerLoad()
+    void Start()
     {
-        // load player data fromm path
+        SOPlayerLoad();
+    }
+    
 
-        for (int i = 0; i < PlayerCount; i++)
+    private  void SOPlayerLoad()
+    {
+        for (int i = 0; i < _playerCount; i++)
         {
-            string     path       = $"Assets/0Teamplate/1Script/1.Manager/SOData/PlayerData {i}.asset";
+            Debug.Log("PlayerLoad");
+            string     path       = $"Assets/0Teamplate/4SO/PlayerSO/playerDataSO {i}.asset";
             PlayerData playerData = AssetDatabase.LoadAssetAtPath<PlayerData>(path);
             PlayerDataList.Add(playerData);
-            Debug.Log(PlayerDataList.Count);
         }
     }
-    [MenuItem("AssetDatabase/Reset/ResetLoadAssetSOPlayerLoad")]
-    private static void ResetSOPlayerLoad()
-    {
-        PlayerDataList.Clear();
-        Debug.Log(PlayerDataList.Count);
-    }
-
 
     public void SOCharacterLoad() { }
 
