@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: playerDataSO 0
   m_EditorClassIdentifier: 
   _playerID: 0
-  _playerPrefab: {fileID: 0}
+  _playerPrefab: {fileID: 1773447467688739227, guid: ab937a1f8b0584245b8760e3178d618f, type: 3}
   _playerName: Liu
   _playerHp: 0
   _playerSkillID: 0
+  _playerIcon: {fileID: 21300000, guid: 5c6119792ee1bd24dbd8dcd780459c12, type: 3}
