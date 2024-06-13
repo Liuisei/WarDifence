@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3f15b6ae8dcadb428846cf7b7f1cd43, type: 3}
-  m_Name: playerDataSO
+  m_Name: playerDataSO 0
   m_EditorClassIdentifier: 
   _playerID: 0
-  _playerPrefab: {fileID: 0}
+  _playerPrefab: {fileID: 1773447467688739227, guid: ab937a1f8b0584245b8760e3178d618f, type: 3}
   _playerName: Liu
   _playerHp: 0
   _playerSkillID: 0
+  _playerIcon: {fileID: 21300000, guid: 5c6119792ee1bd24dbd8dcd780459c12, type: 3}

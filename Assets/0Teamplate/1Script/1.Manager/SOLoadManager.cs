@@ -1,26 +1,48 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
 public class SOLoadManager : BaseSingleton<SOLoadManager>
 {
+    ///////////  variable  //////////
+
     private List<PlayerData>    _playerDataList    = new List<PlayerData>();
-    private List<CharacterData> _characterDataList = new List<CharacterData>();
-    public  List<PlayerData>    PlayerDataList    { get { return _playerDataList; } }
-    public  List<CharacterData> CharacterDataList { get { return _characterDataList; } }
-    static  int                 _playersCount = 0;
-    static  public int                 _playersCounta = 0;
-    [MenuItem("AssetDatabase/LoadAssetSOPlayerLoad")]
-    public void SOPlayerLoad()
+    //private List<CharacterData> _characterDataList = new List<CharacterData>();
+
+    public int                 _playerCount       = 3;
+
+
+    ///////////  property //////////
+    
+    
+    public List<PlayerData>    PlayerDataList    { get { return _playerDataList; } private set { _playerDataList = value; } }
+   
+    
+    //public List<CharacterData> CharacterDataList { get { return _characterDataList; } private set { _characterDataList = value; } }
+    
+    ///////////  method //////////
+
+    void Start()
     {
-        Debug.Log("message");
+        SOPlayerLoad();
     }
+    
+
+    private  void SOPlayerLoad()
+    {
+        for (int i = 0; i < _playerCount; i++)
+        {
+            Debug.Log("PlayerLoad");
+            string     path       = $"Assets/0Teamplate/4SO/PlayerSO/playerDataSO {i}.asset";
+            PlayerData playerData = AssetDatabase.LoadAssetAtPath<PlayerData>(path);
+            PlayerDataList.Add(playerData);
+        }
+    }
+
     public void SOCharacterLoad() { }
 
 
     public void SOSkillLoad() { }
-
-    protected override void AwakeFunction() { }
 }
