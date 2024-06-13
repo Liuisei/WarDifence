@@ -26,7 +26,7 @@ public class PlayerSetCardRender : MonoBehaviour , IEndDragHandler ,IBeginDragHa
     
     public void OnEndDrag(PointerEventData   eventData)
     {
-        InGameManager.Instance.RemoveSpawnTargetToPointerChild(null);
+        InGameManager.Instance.CardDragEnd();
         InGameManager.Instance._isDragIngPlayer = false;
     }
     public void OnBeginDrag(PointerEventData eventData)

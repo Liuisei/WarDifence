@@ -10,12 +10,13 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
-    [SerializeField] Camera     _mainCamera { get;}
+    public           Camera     _mainCamera ;
     [SerializeField] GameObject _pointer ;
     public           GameObject _spawnTarget;
     GameState                   _gameState = GameState.None;
     Vector3                     _playerPosition;
     Vector3                     _firstEnemyPosition;
+    public           int        _inGamePoint   = 0;
     [SerializeField] float      _StartCoolTime = 10;
 
     public bool _isDragIngPlayer     = false;
@@ -24,7 +25,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     //user game data
     int       _playerID = 0;
     List<int> _playerCharacterDeckID;
-    List<int> _platerSkillDeckID;
+    List<int> _playerSkillDeckID;
 
     //enemy data
     List<int>   _enemyDeckID;
@@ -47,6 +48,9 @@ public class InGameManager : BaseSingletonScene<InGameManager>
                     break;
                 case GameState.PlayerSetMode:
                     PlayerSetMode();
+                    break;
+                case GameState.PlayerSetEndCoolTime:
+                    PlayerSetEndCoolTime();
                     break;
                 case GameState.CombatStart:
                     CombatStart();
@@ -79,6 +83,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     public event Action PlayerStarted;
     public event Action PlayerSetStartEvent;
     public event Action PlayerSetModeEvent;
+    public event Action PlayerSetEndCoolTimeEvent;
     public event Action CombatStartEvent;
     public event Action CombatModeEvent;
     public event Action PauseEvent;
@@ -94,29 +99,40 @@ public class InGameManager : BaseSingletonScene<InGameManager>
         StartCoroutine(ChangeStateCoolTime(GameState.StartGame, _StartCoolTime));
     }
 
+    /// <summary> Start時に マウス追跡のPointerを生成する</summary>///
     void MousePointerSpawn() { _pointer = Instantiate(_pointer, Vector3.zero, Quaternion.identity); }
 
-    public void RemoveSpawnTargetToPointerChild(GameObject target)
+    /// <summary>カードをドラッグして離したときに呼ばれる関数</summary>///
+    public void CardDragEnd()
     {
-        Destroy(_spawnTarget);
-        _spawnTarget = null;
+        if (_isOutPlayerSetPanel == true) { _spawnTarget.transform.SetParent(null); }
+        else
+        {
+            Destroy(_spawnTarget);
+            _spawnTarget = null;
+        }
     }
 
-
+    /// <summary>
+    /// カードを選択したら呼ばれる関数
+    /// target:選択されたカードのGameObjectを生成して、Pointerの子にする
+    /// </summary>
+    /// <param name="target">選択されたカードのGameObject</param>
     public void SetSpawnTargetToPointerChild(GameObject target)
     {
-        _spawnTarget                    = Instantiate(target);
+        _spawnTarget                    = Instantiate(target, _pointer.transform, true);
         _spawnTarget.transform.position = _pointer.transform.position;
-        _spawnTarget.transform.SetParent(_pointer.transform);
     }
 
-
+    /// <summary>
+    /// データの初期化
+    /// </summary>
     void GetDataFromDataManager()
     {
         Debug.Log(" Get Data from DataManager");
         _playerID              = 0;
         _playerCharacterDeckID = new List<int>() { 1, 2, 3, 4, 5 };
-        _platerSkillDeckID     = new List<int>() { 1, 2 };
+        _playerSkillDeckID     = new List<int>() { 1, 2 };
     }
 
     IEnumerator ChangeStateCoolTime(GameState  state , float time)
@@ -134,12 +150,16 @@ public class InGameManager : BaseSingletonScene<InGameManager>
         UIManager.Instance.ShowUI(UITypeClass.EnumUIType.PlayerSet);
         PlayerSetStartEvent?.Invoke();
     }
-    public void PlayerSetMode() { PlayerSetStartEvent?.Invoke(); }
-    public void CombatStart()   { CombatStartEvent?.Invoke(); }
-    public void CombatMode()    { CombatModeEvent?.Invoke(); }
-    public void Pause()         { PauseEvent?.Invoke(); }
-    public void Manu()          { ManuEvent?.Invoke(); }
-    public void GameOver()      { GameOverEvent?.Invoke(); }
+    public void PlayerSetMode()
+    {
+        PlayerSetModeEvent?.Invoke();
+    }
+    public void PlayerSetEndCoolTime() { PlayerSetEndCoolTimeEvent?.Invoke(); }
+    public void CombatStart()          { CombatStartEvent?.Invoke(); }
+    public void CombatMode()           { CombatModeEvent?.Invoke(); }
+    public void Pause()                { PauseEvent?.Invoke(); }
+    public void Manu()                 { ManuEvent?.Invoke(); }
+    public void GameOver()             { GameOverEvent?.Invoke(); }
 
 
     protected override void AwakeFunction()  { }
@@ -147,6 +167,6 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 
 public enum GameState
 {
-    None, StartGame, PlayerSetStart, PlayerSetMode, CombatStart,
-    CombatMode, Pause, Manu, GameOver,
+    None, StartGame, PlayerSetStart, PlayerSetMode, PlayerSetEndCoolTime,
+    CombatStart, CombatMode, Pause, Manu, GameOver,
 }
