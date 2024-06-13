@@ -10,14 +10,15 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
+    [SerializeField] Camera     _mainCamera { get;}
     [SerializeField] GameObject _pointer ;
-    public  GameObject SetTargetUnderPointer;
+    public           GameObject _spawnTarget;
     GameState                   _gameState = GameState.None;
     Vector3                     _playerPosition;
     Vector3                     _firstEnemyPosition;
     [SerializeField] float      _StartCoolTime = 10;
 
-    public bool _isDragIngPlayer = false;
+    public bool _isDragIngPlayer     = false;
     public bool _isOutPlayerSetPanel = false;
 
     //user game data
@@ -94,6 +95,20 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     }
 
     void MousePointerSpawn() { _pointer = Instantiate(_pointer, Vector3.zero, Quaternion.identity); }
+
+    public void RemoveSpawnTargetToPointerChild(GameObject target)
+    {
+        Destroy(_spawnTarget);
+        _spawnTarget = null;
+    }
+
+
+    public void SetSpawnTargetToPointerChild(GameObject target)
+    {
+        _spawnTarget                    = Instantiate(target);
+        _spawnTarget.transform.position = _pointer.transform.position;
+        _spawnTarget.transform.SetParent(_pointer.transform);
+    }
 
 
     void GetDataFromDataManager()

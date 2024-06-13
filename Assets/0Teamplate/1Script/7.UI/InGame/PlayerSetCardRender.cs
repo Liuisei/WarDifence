@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PlayerSetCardRender : MonoBehaviour, IDragHandler , IEndDragHandler
+public class PlayerSetCardRender : MonoBehaviour , IEndDragHandler ,IBeginDragHandler, IDragHandler
 {
     [SerializeField] Image _image;
 
 
     int _playerID;
 
-    void Awake() 
+    void Awake()
     {
         if (_image == null) { Debug.LogError(" PlayerSetUI : _image is null"); }
     }
@@ -22,7 +22,20 @@ public class PlayerSetCardRender : MonoBehaviour, IDragHandler , IEndDragHandler
         _playerID = InGameManager.Instance.PlayerID;
         UpdateImage();
     }
-    void        UpdateImage()                         { _image.sprite                           = SOLoadManager.Instance.PlayerDataList[_playerID].PlayerIcon; }
-    public void OnDrag(PointerEventData    eventData) { InGameManager.Instance._isDragIngPlayer = true; }
-    public void OnEndDrag(PointerEventData eventData) { InGameManager.Instance._isDragIngPlayer = false; }
+    void UpdateImage() { _image.sprite = SOLoadManager.Instance.PlayerDataList[_playerID].PlayerIcon; }
+    
+    public void OnEndDrag(PointerEventData   eventData)
+    {
+        InGameManager.Instance.RemoveSpawnTargetToPointerChild(null);
+        InGameManager.Instance._isDragIngPlayer = false;
+    }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        InGameManager.Instance.SetSpawnTargetToPointerChild(SOLoadManager.Instance.PlayerDataList[_playerID].PlayerPrefab);
+        InGameManager.Instance._isDragIngPlayer = true;
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        
+    }
 }
