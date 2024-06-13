@@ -45,12 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiTypeList:
-  - _uiType: 3
-    _uiPrefab: {fileID: 8278654740228772545, guid: ef34341f70bf1694887ecb4c97e044af, type: 3}
-    _spawnedUI: {fileID: 0}
+  - _uiType: 4
+    _uiPrefab: {fileID: 4319360248208318885, guid: 87b6dad8e43796f4cacf8819f06ba223, type: 3}
   - _uiType: 1
     _uiPrefab: {fileID: 1524685634436199631, guid: 87433754f1a80284da8bd238c9805a63, type: 3}
-    _spawnedUI: {fileID: 0}
   - _uiType: 2
     _uiPrefab: {fileID: 1250215781383772083, guid: c0cd442678b77c146839a76af1a574ac, type: 3}
-    _spawnedUI: {fileID: 0}
+  - _uiType: 5
+    _uiPrefab: {fileID: 4319360248208318885, guid: 0af6ca8d2e3ed14428dd0cbf70224fc0, type: 3}

@@ -10,11 +10,15 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 {
     ///////////   variable    //////////
 
-    GameState              _gameState = GameState.None;
-    Vector3                _playerPosition;
-    Vector3                _firstEnemyPosition;
-    [SerializeField] float _StartCoolTime = 10;
+    [SerializeField] GameObject _pointer ;
+    public  GameObject SetTargetUnderPointer;
+    GameState                   _gameState = GameState.None;
+    Vector3                     _playerPosition;
+    Vector3                     _firstEnemyPosition;
+    [SerializeField] float      _StartCoolTime = 10;
 
+    public bool _isDragIngPlayer = false;
+    public bool _isOutPlayerSetPanel = false;
 
     //user game data
     int       _playerID = 0;
@@ -68,7 +72,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     public int     PlayerID           { get { return _playerID; }           private set { _playerID           = value; } }
     public Vector3 PlayerPosition     { get { return _playerPosition; }     private set { _playerPosition     = value; } }
     public Vector3 FirstEnemyPosition { get { return _firstEnemyPosition; } private set { _firstEnemyPosition = value; } }
-    
+
     ///////////  action  //////////
 
     public event Action PlayerStarted;
@@ -84,9 +88,13 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     ///////////   function    //////////
     void Start()
     {
+        MousePointerSpawn();
         GetDataFromDataManager();
         StartCoroutine(ChangeStateCoolTime(GameState.StartGame, _StartCoolTime));
     }
+
+    void MousePointerSpawn() { _pointer = Instantiate(_pointer, Vector3.zero, Quaternion.identity); }
+
 
     void GetDataFromDataManager()
     {
