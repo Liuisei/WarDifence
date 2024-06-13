@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5598591023383259462}
   - component: {fileID: 8151264547544285297}
   - component: {fileID: 7995079239690033076}
+  - component: {fileID: 8652334205846683692}
   m_Layer: 5
   m_Name: Deck
   m_TagString: Untagged
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8652334205846683692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133968430274803116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c69c150b7cf4b246befd25a2a01facb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4319360248208318885
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +101,6 @@ GameObject:
   - component: {fileID: 8066471245575283662}
   - component: {fileID: 6865664895960771383}
   - component: {fileID: 4029131794154957732}
-  - component: {fileID: 3840792115808223492}
   m_Layer: 5
   m_Name: PlayerSetUI
   m_TagString: Untagged
@@ -179,19 +191,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3840792115808223492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319360248208318885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8872465c0f0075c40900f24e115533bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 7818770050388377552}
 --- !u!1 &5902999952630597291
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +202,7 @@ GameObject:
   - component: {fileID: 5290091609872974604}
   - component: {fileID: 1152563621969109323}
   - component: {fileID: 7818770050388377552}
+  - component: {fileID: 4099765897292819506}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -267,3 +267,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4099765897292819506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5902999952630597291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8872465c0f0075c40900f24e115533bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 7818770050388377552}
