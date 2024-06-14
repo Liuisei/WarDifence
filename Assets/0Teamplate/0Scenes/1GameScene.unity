@@ -955,6 +955,10 @@ PrefabInstance:
       propertyPath: _pointer
       value: 
       objectReference: {fileID: 7073757061893347690, guid: 69ab5c08a13b1134d920ee2da8198aac, type: 3}
+    - target: {fileID: 5973697900852095035, guid: 3d110e5a0da46b042aab73b81ddf5d64, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 6454323565392677847, guid: 3d110e5a0da46b042aab73b81ddf5d64, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1099.725

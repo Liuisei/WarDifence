@@ -32,7 +32,7 @@ public class InGameManager : BaseSingletonScene<InGameManager>
 
 
     //////////   property   //////////
-    /// 
+    
     public          GameState GameStateP
     {
         get { return _gameState; }
@@ -105,7 +105,11 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     /// <summary>カードをドラッグして離したときに呼ばれる関数</summary>///
     public void CardDragEnd()
     {
-        if (_isOutPlayerSetPanel == true) { _spawnTarget.transform.SetParent(null); }
+        if (_isOutPlayerSetPanel == true)
+        {
+            _spawnTarget.transform.SetParent(null);
+            GameStateP = GameState.PlayerSetEndCoolTime;
+        }
         else
         {
             Destroy(_spawnTarget);
@@ -154,8 +158,17 @@ public class InGameManager : BaseSingletonScene<InGameManager>
     {
         PlayerSetModeEvent?.Invoke();
     }
-    public void PlayerSetEndCoolTime() { PlayerSetEndCoolTimeEvent?.Invoke(); }
-    public void CombatStart()          { CombatStartEvent?.Invoke(); }
+    public void PlayerSetEndCoolTime()
+    {
+        UIManager.Instance.HideUI(UITypeClass.EnumUIType.PlayerSet);
+        ChangeStateCoolTime(GameState.CombatStart, 1);
+        PlayerSetEndCoolTimeEvent?.Invoke();
+    }
+    public void CombatStart()
+    {
+        UIManager.Instance.ShowUI(UITypeClass.EnumUIType.Deck);
+        CombatStartEvent?.Invoke();
+    }
     public void CombatMode()           { CombatModeEvent?.Invoke(); }
     public void Pause()                { PauseEvent?.Invoke(); }
     public void Manu()                 { ManuEvent?.Invoke(); }
